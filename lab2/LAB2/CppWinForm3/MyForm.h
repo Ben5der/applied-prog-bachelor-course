@@ -1,4 +1,5 @@
 #pragma once
+#include "Controller.h"
 namespace CppWinForm3 {
 
 	using namespace System;
@@ -146,9 +147,11 @@ namespace CppWinForm3 {
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-	auto Writer = gcnew IO::StreamWriter(openFileDialog1->FileName, false, System::Text::Encoding::GetEncoding(1251));
-	Writer->Write(textBox1->Text);
-	Writer->Close(); textBox1->Modified = false;
+		while (openFileDialog1->ShowDialog() != System::Windows::Forms::DialogResult::OK);
+			auto w = gcnew Controller;
+			w->writer(openFileDialog1->FileName, textBox1->Text);
+			textBox1->Modified = false;
+			delete w;
 	}
 
 	private: System::Void openFileDialog1_FileOk(System::Object^  sender, System::ComponentModel::CancelEventArgs^  e) {
@@ -156,9 +159,9 @@ namespace CppWinForm3 {
 	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 		if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
 			FileDirectory->Text = openFileDialog1->FileName;
-			auto Reader = gcnew IO::StreamReader(openFileDialog1->FileName, System::Text::Encoding::GetEncoding(1251));
-			textBox1->Text = Reader->ReadToEnd();
-			Reader->Close();
+			auto r = gcnew Controller;
+			textBox1->Text = r->reader(openFileDialog1->FileName);
+			delete r;
 		}
 	}
 	};
