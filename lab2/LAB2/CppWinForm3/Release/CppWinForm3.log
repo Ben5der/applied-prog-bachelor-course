@@ -1,6 +1,0 @@
-﻿  Controller.cpp
-  Model.cpp
-  MyForm.cpp
-  Создание кода...
-  .NETFramework,Version=v4.5.2.AssemblyAttributes.cpp
-LINK : fatal error LNK1561: точка входа должна быть определена
